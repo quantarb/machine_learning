@@ -24,6 +24,20 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 ### your code goes here ###
+### Keep the training set slice code from the last quiz, so that you are still training on only 1% of the full training set. 
+### Change the kernel of your SVM to rbf. What is the accuracy now, with this more complex kernel?
+
+from sklearn import svm
+
+features_train = features_train[:len(features_train)/100] 
+labels_train = labels_train[:len(labels_train)/100] 
+
+
+
+clf = svm.SVC(kernel='rbf')
+acc = clf.fit(features_train, labels_train).score(features_test, labels_test)
+print "accuracy:", acc
+
 
 #########################################################
 
