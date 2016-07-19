@@ -48,6 +48,7 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+
 poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
@@ -64,6 +65,12 @@ plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+scaled_finance_features = scaler.fit_transform(finance_features)
+pred = KMeans(n_clusters=2).fit_predict(scaled_finance_features)
 
 
 
@@ -74,3 +81,6 @@ try:
     Draw(pred, finance_features, poi, mark_poi=False, name="clusters.pdf", f1_name=feature_1, f2_name=feature_2)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
+
+val = scaler.transform([[200000., 1000000.]])
+print val
